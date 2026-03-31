@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Kitchen | المنيو</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5EFE0;
+    --dark: #1A1208;
+    --gold: #C8963E;
+    --gold-light: #E8B86D;
+    --brown: #5C3D1E;
+    --warm: #E8DCC8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--dark);
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='%23F5EFE0'/%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23C8963E' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  header {
+    position: relative;
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: var(--dark);
+    overflow: hidden;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0; right: 0;
+    height: 40px;
+    background: var(--cream);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .logo-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--brown));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--cream);
+    letter-spacing: -1px;
+    box-shadow: 0 8px 32px rgba(200,150,62,0.4);
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(200,150,62,0.4); }
+    50% { box-shadow: 0 8px 48px rgba(200,150,62,0.7); }
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 8vw, 52px);
+    color: var(--cream);
+    letter-spacing: 4px;
+    font-weight: 900;
+  }
+
+  .tagline {
+    color: var(--gold-light);
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+
+  .lang-badge {
+    display: inline-flex;
+    gap: 6px;
+    margin-top: 16px;
+    background: rgba(200,150,62,0.15);
+    border: 1px solid rgba(200,150,62,0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+  }
+
+  .lang-badge span {
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  /* Location bar */
+  .location-bar {
+    background: var(--gold);
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: 1px;
+  }
+
+  /* Main content */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 16px 100px;
+  }
+
+  /* Category */
+  .category {
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .category:nth-child(1) { animation-delay: 0.1s; }
+  .category:nth-child(2) { animation-delay: 0.2s; }
+  .category:nth-child(3) { animation-delay: 0.3s; }
+  .category:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .cat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--gold), var(--brown));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(200,150,62,0.25);
+  }
+
+  .cat-title-wrap h2 {
+    font-family: 'Cairo', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.2;
+  }
+
+  .cat-title-wrap p {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(to left, transparent, var(--gold), transparent);
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  /* Items grid */
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .item {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 16px;
+    border: 1px solid rgba(200,150,62,0.15);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .item::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200,150,62,0.15);
+    border-color: rgba(200,150,62,0.4);
+  }
+
+  .item:hover::before { opacity: 1; }
+
+  .item-ar {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+
+  .item-en {
+    font-size: 11px;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+  }
+
+  /* Price note */
+  .price-note {
+    background: linear-gradient(135deg, var(--dark), var(--brown));
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    margin: 10px 0 40px;
+    color: var(--cream);
+  }
+
+  .price-note p {
+    font-size: 13px;
+    opacity: 0.8;
+    line-height: 1.8;
+  }
+
+  .price-note strong {
+    color: var(--gold-light);
+    display: block;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  /* CTA */
+  .cta-section {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 16px 20px;
+    background: linear-gradient(to top, var(--cream) 80%, transparent);
+    z-index: 100;
+  }
+
+  .whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 16px;
+    padding: 16px 24px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.4);
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .whatsapp-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 16px rgba(37,211,102,0.3);
+  }
+
+  .wa-icon {
+    width: 24px;
+    height: 24px;
+    fill: white;
+  }
+
+  /* Events banner */
+  .events-banner {
+    background: linear-gradient(135deg, var(--gold) 0%, #A0722A 100%);
+    border-radius: 18px;
+    padding: 22px 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .events-banner::before {
+    content: '🎉';
+    position: absolute;
+    font-size: 80px;
+    opacity: 0.08;
+    top: -10px;
+    left: -10px;
+  }
+
+  .events-banner h3 {
+    color: var(--dark);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .events-banner p {
+    color: var(--dark);
+    font-size: 13px;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+
+  .events-banner .en {
+    font-size: 11px;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    margin-top: 4px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-circle">EK</div>
+  <h1>E-Kitchen</h1>
+  <p class="tagline">أكل بيتي حقيقي · Real Home Food</p>
+  <div class="lang-badge">
+    <span>🇪🇬 عربي</span>
+    <span>·</span>
+    <span>English 🇬🇧</span>
+  </div>
+</header>
+
+<div class="location-bar">
+  📍 الشيخ زايد · أكتوبر &nbsp;|&nbsp; Sheikh Zayed · October
+</div>
+
+<main>
+
+  <div class="price-note">
+    <strong>الأسعار بتتغير؟ احنا عارفين! 😄</strong>
+    <p>الأسعار بتتحدد حسب الكمية والتوقيت<br>تواصل معنا على الواتساب وهنبعتلك السعر فوراً<br><em style="font-size:11px;opacity:0.6">Prices vary by quantity — contact us for current pricing</em></p>
+  </div>
+
+  <!-- محاشي -->
+  <div class="category">
+    <div class="cat-header">
+      <div class="cat-icon">🥬</div>
+      <div class="cat-title-wrap">
+        <h2>محاشي</h2>
+        <p>Stuffed Vegetables</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="items-grid">
+      <div class="item"><div class="item-ar">كرنب</div><div class="item-en">Stuffed Cabbage</div></div>
+      <div class="item"><div class="item-ar">ورق عنب</div><div class="item-en">Vine Leaves</div></div>
+      <div class="item"><div class="item-ar">بذنجان</div><div class="item-en">Stuffed Eggplant</div></div>
+      <div class="item"><div class="item-ar">كوسة</div><div class="item-en">Stuffed Zucchini</div></div>
+      <div class="item"><div class="item-ar">فلفل</div><div class="item-en">Stuffed Peppers</div></div>
+      <div class="item"><div class="item-ar">بصل</div><div class="item-en">Stuffed Onion</div></div>
+    </div>
+  </div>
+
+  <!-- طواجن -->
+  <div class="category">
+    <div class="cat-header">
+      <div class="cat-icon">🍲</div>
+      <div class="cat-title-wrap">
+        <h2>طواجن</h2>
+        <p>Tagine Dishes</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="items-grid">
+      <div class="item"><div class="item-ar">لحمة بالبصل</div><div class="item-en">Meat with Onion</div></div>
+      <div class="item"><div class="item-ar">لحمة بالبامية</div><div class="item-en">Meat with Okra</div></div>
+      <div class="item"><div class="item-ar">لحمة بالبطاطس</div><div class="item-en">Meat with Potatoes</div></div>
+      <div class="item"><div class="item-ar">ورق عنب</div><div class="item-en">Vine Leaves Tagine</div></div>
+      <div class="item" style="grid-column: span 2;"><div class="item-ar">ورق عنب بالكوارع</div><div class="item-en">Vine Leaves with Trotters</div></div>
+    </div>
+  </div>
+
+  <!-- لحوم ودواجن -->
+  <div class="category">
+    <div class="cat-header">
+      <div class="cat-icon">🍗</div>
+      <div class="cat-title-wrap">
+        <h2>لحوم ودواجن</h2>
+        <p>Meat & Poultry</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="items-grid">
+      <div class="item"><div class="item-ar">فرخة مشوية</div><div class="item-en">Grilled Chicken</div></div>
+      <div class="item"><div class="item-ar">فرخة محمرة</div><div class="item-en">Fried Chicken</div></div>
+      <div class="item"><div class="item-ar">بانيه مقلي</div><div class="item-en">Fried Pané</div></div>
+      <div class="item"><div class="item-ar">بانيه جريل</div><div class="item-en">Grilled Pané</div></div>
+      <div class="item"><div class="item-ar">بوفتيك</div><div class="item-en">Beefsteak</div></div>
+      <div class="item"><div class="item-ar">ستيك</div><div class="item-en">Steak</div></div>
+      <div class="item"><div class="item-ar">شاورما</div><div class="item-en">Shawarma</div></div>
+      <div class="item"><div class="item-ar">ممبار</div><div class="item-en">Mombar</div></div>
+      <div class="item"><div class="item-ar">كوردون بلو</div><div class="item-en">Cordon Bleu</div></div>
+      <div class="item"><div class="item-ar">شيش طاووق</div><div class="item-en">Shish Tawook</div></div>
+    </div>
+  </div>
+
+  <!-- رز ومكرونة -->
+  <div class="category">
+    <div class="cat-header">
+      <div class="cat-icon">🍚</div>
+      <div class="cat-title-wrap">
+        <h2>رز ومكرونة</h2>
+        <p>Rice & Pasta</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="items-grid">
+      <div class="item"><div class="item-ar">مكرونة بشاميل</div><div class="item-en">Béchamel Pasta</div></div>
+      <div class="item"><div class="item-ar">لازانيا</div><div class="item-en">Lasagna</div></div>
+      <div class="item"><div class="item-ar">رز بالشعرية</div><div class="item-en">Rice with Vermicelli</div></div>
+      <div class="item"><div class="item-ar">رز بالخلطة</div><div class="item-en">Mixed Rice</div></div>
+      <div class="item"><div class="item-ar">رز بالكبدة</div><div class="item-en">Rice with Liver</div></div>
+      <div class="item"><div class="item-ar">فتة شاورما</div><div class="item-en">Shawarma Fattah</div></div>
+      <div class="item"><div class="item-ar">رز بسمتي</div><div class="item-en">Basmati Rice</div></div>
+      <div class="item"><div class="item-ar">مكرونة وايت صوص</div><div class="item-en">White Sauce Pasta</div></div>
+      <div class="item" style="grid-column: span 2;"><div class="item-ar">مكرونة ريد صوص</div><div class="item-en">Red Sauce Pasta</div></div>
+    </div>
+  </div>
+
+  <!-- Events banner -->
+  <div class="events-banner">
+    <h3>🎊 مناسباتك عندنا</h3>
+    <p>خطوبات · أفراح · عزايم<br>بنجهز أكل كامل لأي مناسبة</p>
+    <span class="en">Engagements · Weddings · Events — Full catering available</span>
+  </div>
+
+</main>
+
+<div class="cta-section">
+  <a href="https://wa.me/201105120690?text=السلام عليكم، عايز أعرف الأسعار والطلب من E-Kitchen" class="whatsapp-btn">
+    <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    اطلب دلوقتي · Order Now
+  </a>
+</div>
+
+</body>
+</html>
